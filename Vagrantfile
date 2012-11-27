@@ -5,11 +5,49 @@ Vagrant::Config.run do |config|
   # All Vagrant configuration is done here. The most common configuration
   # options are documented and commented below. For a complete reference,
   # please see the online documentation at vagrantup.com.
+  config.vm.box = "lucid64"
+  config.vm.provision :puppet do |puppet|
+    puppet.manifests_path = "puppet/manifests"
+    puppet.manifest_file = "main.pp"
+    puppet.module_path = "puppet/modules"
+  end
 
-  config.vm.host_name = 'm0'
+  config.vm.define :m0 do |c|
+    c.vm.customize ["modifyvm", :id, "--name", "m0", "--memory", "512"]
+    c.vm.host_name = 'm0'
+    c.vm.forward_port 22, 10022, auto: true
+    c.vm.forward_port 80, 10080
+    c.vm.network :hostonly, "192.168.2.10"
+  end
+
+#  config.vm.define :m1 do |c|
+#    c.vm.box = "lucid64"
+#    c.vm.customize ["modifyvm", :id, "--name", "m1", "--memory", "768"]
+#    c.vm.host_name = 'm1'
+#    c.vm.forward_port 22, 11022, auto: true
+#    c.vm.forward_port 80, 11080
+#    c.vm.network :hostonly, "192.168.2.11"
+#  end
+#
+#  config.vm.define :m2 do |c|
+#    c.vm.box = "lucid64"
+#    c.vm.customize ["modifyvm", :id, "--name", "m2", "--memory", "768"]
+#    c.vm.host_name = 'm2'
+#    c.vm.forward_port 22, 12022, auto: true
+#    c.vm.forward_port 80, 12080
+#    c.vm.network :hostonly, "192.168.2.12"
+#  end
+#
+#  config.vm.define :m3 do |c|
+#    c.vm.box = "lucid64"
+#    c.vm.customize ["modifyvm", :id, "--name", "m3", "--memory", "768"]
+#    c.vm.host_name = 'm3'
+#    c.vm.forward_port 22, 13022, auto: true
+#    c.vm.forward_port 80, 13080
+#    c.vm.network :hostonly, "192.168.2.13"
+#  end
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "centos6.3"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
@@ -32,8 +70,6 @@ Vagrant::Config.run do |config|
   # Forward a port from the guest to the host, which allows for outside
   # computers to access the VM, whereas host only networking does not.
   # config.vm.forward_port 80, 8080
-  config.vm.forward_port 22, 10022, auto: true
-  config.vm.forward_port 80, 10080
 
   # Share an additional folder to the guest VM. The first argument is
   # an identifier, the second is the path on the guest to mount the
