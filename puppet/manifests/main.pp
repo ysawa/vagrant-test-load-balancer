@@ -5,3 +5,4 @@ $essentials = ["build-essential", "libxslt1.1", "libxslt1-dev", "libxml2", "libs
 package { $essentials: ensure => "installed" }
 
 include nginx
+include mongodb
