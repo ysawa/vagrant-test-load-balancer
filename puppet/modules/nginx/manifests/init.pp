@@ -73,4 +73,11 @@ class nginx {
     owner   => root,
     group   => root,
   }
+
+  exec { 'start nginx':
+    require => [
+      File['/etc/init/nginx.conf'],
+    ],
+    command => '/sbin/start nginx',
+  }
 }
