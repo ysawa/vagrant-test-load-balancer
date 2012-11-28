@@ -11,17 +11,17 @@ class nginx {
     group   => root,
   }
 
-  file { '/etc/nginx/conf.d':
-    ensure  => 'directory',
-    mode    => '0755',
-    owner   => 'nginx',
-    group   => 'nginx',
-  }
-
   exec { "/tmp/puppet-install-nginx.sh":
     require => [
       File['/tmp/puppet-install-nginx.sh'],
     ],
     cwd       => '/tmp/',
+  }
+
+  file { '/etc/nginx/conf.d':
+    ensure  => 'directory',
+    mode    => '0755',
+    owner   => 'nginx',
+    group   => 'nginx',
   }
 }
