@@ -1,5 +1,6 @@
 class nginx {
 
+  package { ['apache2']: ensure => "absent" }
   package { ['libpcre3', 'libpcre3-dev']: ensure => "installed" }
 
   file { '/tmp/nginx.sh':
