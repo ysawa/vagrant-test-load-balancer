@@ -76,7 +76,7 @@ PIDSPATH=/var/run/nginx
 
 DESCRIPTION="Nginx Server..."
 
-RUNAS=nginx                              #user to run as
+RUNAS=root                              #user to run as
 
 SCRIPT_OK=0                             #ala error codes
 SCRIPT_ERROR=1                          #ala error codes

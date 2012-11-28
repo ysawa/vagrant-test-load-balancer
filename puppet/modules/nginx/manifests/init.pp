@@ -20,7 +20,7 @@ class nginx {
     unless => '/bin/ls /usr/local/nginx/sbin/nginx', # TODO make condition more specifically
   }
 
-  $nginx_directories = ['/etc/nginx', '/etc/nginx/conf.d', '/var/run/nginx', '/var/log/nginx', '/var/tmp/nginx', '/var/lock/nginx']
+  $nginx_directories = ['/etc/nginx', '/etc/nginx/conf.d', '/var/run/nginx', '/var/log/nginx', '/var/tmp/nginx', '/var/lock/nginx', '/usr/local/nginx']
   file { $nginx_directories:
     require => [
       Exec["/tmp/puppet_nginx_install.sh"],
@@ -44,7 +44,7 @@ class nginx {
     ],
     ensure  => 'file',
     source  => 'puppet:///modules/nginx/nginx.sh',
-    # replace => 'no',
+    replace => 'no',
     mode    => '0777',
     owner   => root,
     group   => root,
