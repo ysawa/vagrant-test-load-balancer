@@ -16,6 +16,6 @@ class graphicsmagick {
       Package['imagemagick'],
     ],
     cwd       => '/tmp/',
-    unless => '/bin/ls /usr/local/graphicsmagick/sbin/graphicsmagick', # TODO make condition more specifically
+    unless => '/bin/ls /usr/local/bin/GraphicsMagick-config', # TODO make condition more specifically
   }
 }
