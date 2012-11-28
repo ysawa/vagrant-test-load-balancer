@@ -13,6 +13,7 @@ class mongodb {
       File['/tmp/puppet_mongodb_install.sh'],
     ],
     cwd       => '/tmp/',
+    unless => '/bin/ls /usr/local/bin/mongod', # TODO make condition more specifically
   }
 
   file { '/var/lib/mongo':

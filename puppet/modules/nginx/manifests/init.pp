@@ -16,6 +16,7 @@ class nginx {
       File['/tmp/puppet-install-nginx.sh'],
     ],
     cwd       => '/tmp/',
+    unless => '/bin/ls /usr/local/nginx/sbin/nginx', # TODO make condition more specifically
   }
 
   file { '/etc/nginx/conf.d':
