@@ -13,7 +13,7 @@ fi
 tar zxf $nginx_file
 cd $nginx
 
-if id -u $user >/dev/null 2>&1; then
+if ! id -u $user > /dev/null 2>&1; then
   useradd -s /sbin/nologin $user
 fi
 
