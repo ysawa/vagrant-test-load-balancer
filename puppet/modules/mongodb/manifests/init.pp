@@ -23,6 +23,14 @@ class mongodb {
     group   => 'mongo',
   }
 
+
+  file { '/var/log/mongo':
+    ensure  => 'directory',
+    mode    => '0777',
+    owner   => 'mongo',
+    group   => 'mongo',
+  }
+
   file { '/etc/mongod.conf':
     ensure  => 'file',
     replace => 'no',

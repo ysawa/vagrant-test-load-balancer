@@ -25,4 +25,25 @@ class nginx {
     owner   => 'nginx',
     group   => 'nginx',
   }
+
+  file { '/var/run/nginx':
+    ensure  => 'directory',
+    mode    => '0755',
+    owner   => 'nginx',
+    group   => 'nginx',
+  }
+
+  file { '/var/log/nginx':
+    ensure  => 'directory',
+    mode    => '0755',
+    owner   => 'nginx',
+    group   => 'nginx',
+  }
+
+  file { '/var/tmp/nginx':
+    ensure  => 'directory',
+    mode    => '0755',
+    owner   => 'nginx',
+    group   => 'nginx',
+  }
 }
