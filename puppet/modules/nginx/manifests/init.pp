@@ -61,4 +61,16 @@ class nginx {
     owner   => nginx,
     group   => nginx,
   }
+
+  file { '/etc/init/nginx.conf':
+    require => [
+      File['/etc/nginx/nginx.conf'],
+    ],
+    ensure  => 'file',
+    source  => 'puppet:///modules/nginx/init/nginx.conf',
+    replace => 'no',
+    mode    => '0644',
+    owner   => root,
+    group   => root,
+  }
 }

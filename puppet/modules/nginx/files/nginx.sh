@@ -278,7 +278,7 @@ quietupgrade() {
       wait_for_pid 'removed' $PIDSPATH/$PIDFILE.oldbin
                         removePIDFile $PIDSPATH/$PIDFILE.oldbin
 
-      log_end_msg $SCRIPT_ok
+      log_end_msg $SCRIPT_OK
     fi
         else
                 log_end_msg $SCRIPT_ERROR
