@@ -21,7 +21,7 @@ fi
   --conf-path=/etc/nginx/nginx.conf \
   --error-log-path=/var/log/nginx/error.log \
   --pid-path=/var/run/nginx/nginx.pid  \
-  --lock-path=/var/lock/nginx.lock \
+  --lock-path=/var/lock/nginx/nginx.lock \
   --user=nginx \
   --group=nginx \
   --with-http_stub_status_module \

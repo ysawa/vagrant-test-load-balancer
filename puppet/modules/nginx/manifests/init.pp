@@ -46,4 +46,33 @@ class nginx {
     owner   => 'nginx',
     group   => 'nginx',
   }
+
+  file { '/var/lock/nginx':
+    ensure  => 'directory',
+    mode    => '0755',
+    owner   => 'nginx',
+    group   => 'nginx',
+  }
+
+  exec { 'chown nginx directories':
+    command => '/bin/chown -R nginx:nginx /var/run/nginx /var/log/nginx /var/lock/nginx /var/tmp/nginx; true'
+  }
+
+  file { '/etc/init.d/nginx':
+    ensure  => 'file',
+    source  => 'puppet:///modules/nginx/nginx.sh',
+    # replace => 'no',
+    mode    => '0777',
+    owner   => root,
+    group   => root,
+  }
+
+  file { '/etc/nginx/nginx.conf':
+    ensure  => 'file',
+    source  => 'puppet:///modules/nginx/nginx.conf',
+    # replace => 'no',
+    mode    => '0755',
+    owner   => nginx,
+    group   => nginx,
+  }
 }
