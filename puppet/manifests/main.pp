@@ -8,3 +8,4 @@ package { $essentials:
 
 include nginx
 include mongodb
+include graphicsmagick
