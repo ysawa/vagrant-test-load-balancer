@@ -15,11 +15,4 @@ class mongodb {
     cwd       => '/tmp/',
     unless => '/bin/ls /usr/bin/mongod', # TODO make condition more specifically
   }
-
-  exec { 'sysv-rc-conf mongodb on':
-    require => [
-      Exec["/tmp/puppet_mongodb_install.sh"],
-    ],
-    command => '/usr/sbin/sysv-rc-conf mongodb on',
-  }
 }

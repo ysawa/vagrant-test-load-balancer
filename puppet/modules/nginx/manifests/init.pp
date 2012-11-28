@@ -61,11 +61,4 @@ class nginx {
     owner   => nginx,
     group   => nginx,
   }
-
-  exec { 'sysv-rc-conf nginx on':
-    require => [
-      File['/etc/init.d/nginx', '/etc/nginx/nginx.conf'],
-    ],
-    command => '/usr/sbin/sysv-rc-conf nginx on',
-  }
 }
