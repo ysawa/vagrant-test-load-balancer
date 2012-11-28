@@ -20,7 +20,7 @@ class nginx {
     unless => '/bin/ls /usr/local/nginx/sbin/nginx', # TODO make condition more specifically
   }
 
-  $nginx_directories = ['/etc/nginx', '/etc/nginx/conf.d', '/var/run/nginx', '/var/log/nginx', '/var/tmp/nginx', '/var/lock/nginx', '/usr/local/nginx']
+  $nginx_directories = ['/etc/nginx', '/etc/nginx/conf.d', '/var/run/nginx', '/var/lib/nginx', '/var/log/nginx', '/var/tmp/nginx', '/var/lock/nginx', '/usr/local/nginx']
   file { $nginx_directories:
     require => [
       Exec["/tmp/puppet_nginx_install.sh"],
@@ -35,7 +35,7 @@ class nginx {
     require => [
       File[$nginx_directories],
     ],
-    command => '/bin/chown -R nginx:nginx /etc/nginx/conf.d /var/run/nginx /var/log/nginx /var/lock/nginx /var/tmp/nginx; true',
+    command => '/bin/chown -R nginx:nginx /etc/nginx/conf.d /var/run/nginx /var/lib/nginx /var/log/nginx /var/lock/nginx /var/tmp/nginx; true',
   }
 
   file { '/etc/init.d/nginx':
@@ -62,9 +62,21 @@ class nginx {
     group   => nginx,
   }
 
-  file { '/etc/init/nginx.conf':
+  file { '/etc/nginx/conf.d/default.conf':
     require => [
       File['/etc/nginx/nginx.conf'],
+    ],
+    ensure  => 'file',
+    source  => 'puppet:///modules/nginx/conf.d/default.conf',
+    replace => 'no',
+    mode    => '0644',
+    owner   => nginx,
+    group   => nginx,
+  }
+
+  file { '/etc/init/nginx.conf':
+    require => [
+      File['/etc/nginx/conf.d/default.conf'],
     ],
     ensure  => 'file',
     source  => 'puppet:///modules/nginx/init/nginx.conf',
