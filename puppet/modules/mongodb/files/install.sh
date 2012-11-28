@@ -1,7 +1,9 @@
 #!/bin/bash
 
+cd /tmp
 apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
 echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' > /etc/apt/sources.list.d/10gen.list
 
 apt-get update -y
 apt-get install mongodb-10gen -y
+mv mongodb.conf /etc/mongodb.conf

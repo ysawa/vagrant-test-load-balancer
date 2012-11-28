@@ -56,8 +56,8 @@ class nginx {
     ],
     ensure  => 'file',
     source  => 'puppet:///modules/nginx/nginx.conf',
-    # replace => 'no',
-    mode    => '0755',
+    replace => 'no',
+    mode    => '0644',
     owner   => nginx,
     group   => nginx,
   }
