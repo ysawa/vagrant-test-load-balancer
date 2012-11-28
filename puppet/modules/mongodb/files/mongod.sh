@@ -8,7 +8,7 @@
 # config: /etc/mongod.conf
 # pidfile: /var/run/mongo/mongo.pid
 
-. /etc/rc.d/init.d/functions
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 # things from mongod.conf get there by mongod reading it
 
@@ -17,18 +17,19 @@
 # this script assumes all options are in the config file.
 CONFIGFILE="/etc/mongod.conf"
 OPTIONS=" -f $CONFIGFILE"
-SYSCONFIG="/etc/sysconfig/mongod"
+SYSCONFIG="/etc/init.d/mongod"
 
 # FIXME: 1.9.x has a --shutdown flag that parses the config file and
 # shuts down the correct running pid, but that's unavailable in 1.8
 # for now.  This can go away when this script stops supporting 1.8.
 DBPATH=`awk -F= '/^dbpath=/{print $2}' "$CONFIGFILE"`
-mongod=${MONGOD-/usr/bin/mongod}
+mongod=${MONGOD-/usr/local/bin/mongod}
+LOCKFILE=/var/lock/mongo/mongod.lock
 
 MONGO_USER=mongo
 MONGO_GROUP=mongo
 
-. "$SYSCONFIG" || true
+test -x $SYSCONFIG || exit 0
 
 start()
 {
@@ -36,16 +37,16 @@ start()
   daemon --user "$MONGO_USER" $mongod $OPTIONS
   RETVAL=$?
   echo
-  [ $RETVAL -eq 0 ] && touch /var/lock/subsys/mongod
+  [ $RETVAL -eq 0 ] && touch $LOCKFILE
 }
 
 stop()
 {
   echo -n $"Stopping mongod: "
-  killproc -p "$DBPATH"/mongod.lock -d 300 /usr/bin/mongod
+  killproc -p $LOCKFILE -d 300 /usr/local/bin/mongod
   RETVAL=$?
   echo
-  [ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/mongod
+  [ $RETVAL -eq 0 ] && touch $LOCKFILE
 }
 
 restart () {
@@ -53,7 +54,6 @@ restart () {
         start
 }
 
-ulimit -n 12000
 RETVAL=0
 
 case "$1" in
@@ -67,7 +67,7 @@ case "$1" in
     restart
     ;;
   condrestart)
-    [ -f /var/lock/subsys/mongod ] && restart || :
+    [ -f $LOCKFILE ] && restart || :
     ;;
   status)
     status $mongod
@@ -77,3 +77,5 @@ case "$1" in
     echo "Usage: $0 {start|stop|status|restart|reload|force-reload|condrestart}"
     RETVAL=1
 esac
+
+# Starting mongod: /etc/init.d/mongod: line 37: daemon: command not found

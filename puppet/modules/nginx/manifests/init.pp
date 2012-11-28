@@ -28,7 +28,7 @@ class nginx {
   }
 
   exec { 'chown nginx directories':
-    command => '/bin/chown -R nginx:nginx /etc/nginx/conf.d /var/run/nginx /var/log/nginx /var/lock/nginx /var/tmp/nginx; true'
+    command => '/bin/chown -R nginx:nginx /etc/nginx/conf.d /var/run/nginx /var/log/nginx /var/lock/nginx /var/tmp/nginx; true',
   }
 
   file { '/etc/init.d/nginx':
@@ -47,5 +47,9 @@ class nginx {
     mode    => '0755',
     owner   => nginx,
     group   => nginx,
+  }
+
+  exec { 'sysv-rc-conf nginx on':
+    command => '/usr/sbin/sysv-rc-conf nginx on',
   }
 }
