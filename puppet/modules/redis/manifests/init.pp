@@ -64,7 +64,7 @@ class redis {
     ],
     ensure  => 'file',
     source  => 'puppet:///modules/redis/init/redis-server.conf',
-    # replace => 'no',
+    replace => 'no',
     mode    => '0644',
     owner   => root,
     group   => root,

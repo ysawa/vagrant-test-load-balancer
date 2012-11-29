@@ -20,32 +20,32 @@ Vagrant::Config.run do |config|
     c.vm.network :hostonly, "192.168.2.10"
   end
 
-#  config.vm.define :m1 do |c|
-#    c.vm.box = "lucid64"
-#    c.vm.customize ["modifyvm", :id, "--name", "m1", "--memory", "768"]
-#    c.vm.host_name = 'm1'
-#    c.vm.forward_port 22, 11022, auto: true
-#    c.vm.forward_port 80, 11080
-#    c.vm.network :hostonly, "192.168.2.11"
-#  end
-#
-#  config.vm.define :m2 do |c|
-#    c.vm.box = "lucid64"
-#    c.vm.customize ["modifyvm", :id, "--name", "m2", "--memory", "768"]
-#    c.vm.host_name = 'm2'
-#    c.vm.forward_port 22, 12022, auto: true
-#    c.vm.forward_port 80, 12080
-#    c.vm.network :hostonly, "192.168.2.12"
-#  end
-#
-#  config.vm.define :m3 do |c|
-#    c.vm.box = "lucid64"
-#    c.vm.customize ["modifyvm", :id, "--name", "m3", "--memory", "768"]
-#    c.vm.host_name = 'm3'
-#    c.vm.forward_port 22, 13022, auto: true
-#    c.vm.forward_port 80, 13080
-#    c.vm.network :hostonly, "192.168.2.13"
-#  end
+  config.vm.define :m1 do |c|
+    c.vm.box = "lucid64"
+    c.vm.customize ["modifyvm", :id, "--name", "m1", "--memory", "768"]
+    c.vm.host_name = 'm1'
+    c.vm.forward_port 22, 11022, auto: true
+    c.vm.forward_port 80, 11080
+    c.vm.network :hostonly, "192.168.2.11"
+  end
+
+  config.vm.define :m2 do |c|
+    c.vm.box = "lucid64"
+    c.vm.customize ["modifyvm", :id, "--name", "m2", "--memory", "768"]
+    c.vm.host_name = 'm2'
+    c.vm.forward_port 22, 12022, auto: true
+    c.vm.forward_port 80, 12080
+    c.vm.network :hostonly, "192.168.2.12"
+  end
+
+  config.vm.define :m3 do |c|
+    c.vm.box = "lucid64"
+    c.vm.customize ["modifyvm", :id, "--name", "m3", "--memory", "768"]
+    c.vm.host_name = 'm3'
+    c.vm.forward_port 22, 13022, auto: true
+    c.vm.forward_port 80, 13080
+    c.vm.network :hostonly, "192.168.2.13"
+  end
 
   # Every Vagrant virtual environment requires a box to build off of.
 
