@@ -23,6 +23,6 @@ class nagios {
       Package['libgd2-xpm-dev'],
     ],
     cwd       => '/tmp/',
-    # unless => '/bin/ls /usr/local/bin/nagios', # TODO make condition more specifically
+    unless => '/bin/ls /usr/local/nagios/bin/nagios', # TODO make condition more specifically
   }
 }
