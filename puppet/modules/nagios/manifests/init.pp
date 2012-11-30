@@ -25,4 +25,15 @@ class nagios {
     cwd       => '/tmp/',
     unless => '/bin/ls /usr/local/nagios/bin/nagios', # TODO make condition more specifically
   }
+
+  $nginx_directories = ['/var/log/nginx', '/var/log/nginx/nagios']
+  file { $nginx_directories:
+    require => [
+      Exec["/tmp/puppet_nagios_install.sh"],
+    ],
+    ensure  => 'directory',
+    mode    => '0755',
+    owner   => 'nginx',
+    group   => 'nginx',
+  }
 }
