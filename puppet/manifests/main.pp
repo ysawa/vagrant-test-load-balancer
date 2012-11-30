@@ -7,3 +7,4 @@ include mongodb
 include graphicsmagick
 include redis
 include mongodb::replication
+include hosts
