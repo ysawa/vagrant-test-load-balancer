@@ -9,3 +9,4 @@ include redis
 include mongodb::replication
 include hosts
 include editors
+include nagois

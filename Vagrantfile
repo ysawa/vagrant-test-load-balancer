@@ -8,7 +8,7 @@ Vagrant::Config.run do |config|
   config.vm.box = "lucid64"
   config.vm.provision :puppet do |puppet|
     puppet.manifests_path = "puppet/manifests"
-    puppet.manifest_file = "main.pp"
+    puppet.manifest_file = "init.pp"
     puppet.module_path = "puppet/modules"
   end
 
