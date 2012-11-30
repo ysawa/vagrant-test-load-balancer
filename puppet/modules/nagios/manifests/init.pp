@@ -8,6 +8,7 @@ class nagios {
   file { '/tmp/puppet_nagios_install.sh':
     require => [
       User['nagios'],
+      Package['git-core'],
     ],
     ensure  => 'file',
     source  => 'puppet:///modules/nagios/install.sh',
