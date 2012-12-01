@@ -11,3 +11,4 @@ include mongodb::replication
 include hosts
 include editors
 include nagios
+include ganglia
