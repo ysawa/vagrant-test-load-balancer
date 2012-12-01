@@ -8,7 +8,6 @@ class nagios {
   file { '/tmp/puppet_nagios_install.sh':
     require => [
       User['nagios'],
-      Package['build-essential', 'git-core'],
     ],
     ensure  => 'file',
     source  => 'puppet:///modules/nagios/install.sh',
@@ -21,6 +20,7 @@ class nagios {
     require => [
       File['/tmp/puppet_nagios_install.sh'],
       Package['libgd2-xpm-dev'],
+      Package['build-essential', 'git-core', 'automake', 'autoconf'],
     ],
     cwd       => '/tmp/',
     unless => '/bin/ls /usr/local/nagios/bin/nagios', # TODO make condition more specifically
@@ -46,7 +46,7 @@ class nagios {
     ],
     cwd       => '/tmp/',
     onlyif => '/bin/ls /usr/local/nagios/bin/nagios', # TODO make condition more specifically
-    # unless => '/bin/ls /usr/local/nagios/bin/nagios', # TODO make condition more specifically
+    unless => '/bin/ls /usr/local/nagios/libexec/check_apt', # TODO make condition more specifically
   }
 
   $nginx_directories = ['/var/log/nginx/nagios']
@@ -57,11 +57,11 @@ class nagios {
     ],
     ensure  => 'directory',
     mode    => '0755',
-    owner   => 'nginx',
-    group   => 'nginx',
+    owner   => 'www-data',
+    group   => 'www-data',
   }
 
-  file { '/etc/nginx/conf.d/nagois.conf':
+  file { '/etc/nginx/conf.d/nagios.conf':
     require => [
       Package['nginx'],
       Exec["/tmp/puppet_nagios_install.sh"],
@@ -70,11 +70,11 @@ class nagios {
     # replace => 'no',
     source  => 'puppet:///modules/nagios/nginx.conf',
     mode    => '0644',
-    owner   => 'nginx',
-    group   => 'nginx',
+    owner   => 'www-data',
+    group   => 'www-data',
   }
 
-  service { 'nagois':
+  service { 'nagios':
     require => [
       Exec["/tmp/puppet_nagios_install.sh"],
       Exec["/tmp/puppet_nagios_install_plugins.sh"],
