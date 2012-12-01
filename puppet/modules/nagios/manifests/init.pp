@@ -67,7 +67,7 @@ class nagios {
       Exec["/tmp/puppet_nagios_install.sh"],
     ],
     ensure  => 'directory',
-    # replace => 'no',
+    replace => 'no',
     source  => 'puppet:///modules/nagios/nginx.conf',
     mode    => '0644',
     owner   => 'www-data',
@@ -80,5 +80,13 @@ class nagios {
       Exec["/tmp/puppet_nagios_install_plugins.sh"],
     ],
     ensure => 'running',
+  }
+
+  exec { 'reload nginx after installing nagios':
+    require => [
+      Service['nginx'],
+      Service['nagios'],
+    ],
+    command => '/etc/init.d/nginx reload',
   }
 }
