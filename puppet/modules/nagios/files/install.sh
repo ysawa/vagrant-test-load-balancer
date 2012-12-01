@@ -13,11 +13,3 @@ cd nagios
 make all
 make install install-init install-commandmode
 make install-config
-
-cd /tmp
-git clone git://nagiosplug.git.sourceforge.net/gitroot/nagiosplug/nagiosplug
-cd nagiosplug
-./tools/setup
-./configure
-make
-make install

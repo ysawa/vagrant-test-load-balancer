@@ -10,6 +10,7 @@ class redis {
 
   exec { "/tmp/puppet_redis_install.sh":
     require => [
+      Package["build-essential"],
       File['/tmp/puppet_redis_install.sh'],
     ],
     cwd       => '/tmp/',

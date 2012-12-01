@@ -5,7 +5,7 @@ Vagrant::Config.run do |config|
   # All Vagrant configuration is done here. The most common configuration
   # options are documented and commented below. For a complete reference,
   # please see the online documentation at vagrantup.com.
-  config.vm.box = "lucid64"
+  config.vm.box = "precise64"
   config.vm.provision :puppet do |puppet|
     puppet.manifests_path = "puppet/manifests"
     puppet.manifest_file = "init.pp"
@@ -21,7 +21,7 @@ Vagrant::Config.run do |config|
   end
 
   config.vm.define :m1 do |c|
-    c.vm.box = "lucid64"
+    c.vm.box = "precise64"
     c.vm.customize ["modifyvm", :id, "--name", "m1", "--memory", "768"]
     c.vm.host_name = 'm1'
     c.vm.forward_port 22, 11022, auto: true
@@ -30,7 +30,7 @@ Vagrant::Config.run do |config|
   end
 
   config.vm.define :m2 do |c|
-    c.vm.box = "lucid64"
+    c.vm.box = "precise64"
     c.vm.customize ["modifyvm", :id, "--name", "m2", "--memory", "768"]
     c.vm.host_name = 'm2'
     c.vm.forward_port 22, 12022, auto: true
@@ -39,7 +39,7 @@ Vagrant::Config.run do |config|
   end
 
   config.vm.define :m3 do |c|
-    c.vm.box = "lucid64"
+    c.vm.box = "precise64"
     c.vm.customize ["modifyvm", :id, "--name", "m3", "--memory", "768"]
     c.vm.host_name = 'm3'
     c.vm.forward_port 22, 13022, auto: true

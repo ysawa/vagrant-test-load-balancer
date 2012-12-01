@@ -14,6 +14,7 @@ class graphicsmagick {
     require => [
       File['/tmp/puppet_graphicsmagick_install.sh'],
       Package['imagemagick'],
+      Package['build-essential'],
     ],
     cwd       => '/tmp/',
     unless => '/bin/ls /usr/local/bin/GraphicsMagick-config', # TODO make condition more specifically
