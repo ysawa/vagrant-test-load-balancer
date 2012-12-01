@@ -27,7 +27,7 @@ class ganglia {
       Package[$packages],
     ],
     ensure  => 'directory',
-    # replace => 'no',
+    replace => 'no',
     source  => 'puppet:///modules/ganglia/nginx.conf',
     mode    => '0644',
     owner   => 'www-data',
