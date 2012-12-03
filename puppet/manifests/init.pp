@@ -1,7 +1,6 @@
-exec { 'apt-get update': command => '/usr/bin/apt-get update -y', }
-
 
 node default {
+  exec { 'apt-get update': command => '/usr/bin/apt-get update -y', }
   include ppa
   include essentials
   include php5
@@ -17,6 +16,15 @@ node default {
   include munin::node
 }
 
-node m0 {
+node m0 inherits default {
   include munin
+}
+
+node m1 inherits default {
+}
+
+node m2 inherits default {
+}
+
+node m3 inherits default {
 }
