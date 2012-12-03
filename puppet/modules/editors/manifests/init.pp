@@ -1,6 +1,6 @@
 class editors {
 
-  $editors = ["vim"]
+  $editors = ['vim', 'emacs']
   package { $editors:
     ensure => "installed"
   }

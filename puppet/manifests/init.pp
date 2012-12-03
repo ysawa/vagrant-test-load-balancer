@@ -5,9 +5,9 @@ node default {
   include essentials
   include php5
   include nginx
-  include mongodb
   include graphicsmagick
   include redis
+  include mongodb
   include mongodb::replication
   include hosts
   include editors
