@@ -1,6 +1,7 @@
 class nginx {
 
-  package { ['apache2']: ensure => "absent" }
+  $apache_packages = ['apache2', 'apache2.2-bin', 'apache2.2-common']
+  package { $apache_packages: ensure => "absent" }
 
   package { 'fcgiwrap':
     ensure => 'installed',

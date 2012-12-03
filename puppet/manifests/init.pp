@@ -11,4 +11,5 @@ include mongodb::replication
 include hosts
 include editors
 include nagios
-include ganglia
+# include ganglia
+include munin

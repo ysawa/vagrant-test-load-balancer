@@ -29,7 +29,7 @@ class nagios {
   file { '/tmp/puppet_nagios_install_plugins.sh':
     require => [
       User['nagios'],
-      Package['git-core'],
+      Package['git-core', 'gettext'],
       Exec["/tmp/puppet_nagios_install.sh"],
     ],
     ensure  => 'file',
@@ -45,8 +45,9 @@ class nagios {
       Exec["/tmp/puppet_nagios_install.sh"],
     ],
     cwd       => '/tmp/',
+    timeout => 600,
     onlyif => '/bin/ls /usr/local/nagios/bin/nagios', # TODO make condition more specifically
-    unless => '/bin/ls /usr/local/nagios/libexec/check_apt', # TODO make condition more specifically
+    unless => '/bin/ls /usr/local/nagios/libexec/check_dhcp', # TODO make condition more specifically
   }
 
   $nginx_directories = ['/var/log/nginx/nagios']
