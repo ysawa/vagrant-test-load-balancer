@@ -2,9 +2,9 @@ class munin::node {
 
   $packages = ['munin-node', 'munin-plugins-extra']
   package { $packages:
-    require => [
-      Package['munin'],
-    ],
+#    require => [
+#      Package['munin'],
+#    ],
     ensure => 'installed'
   }
 
