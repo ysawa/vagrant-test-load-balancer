@@ -1,6 +1,6 @@
 class munin {
 
-  $packages = ['munin', 'munin-node', 'munin-plugins-extra']
+  $packages = ['munin']
   package { $packages:
     require => [
       Package['fcgiwrap'],
@@ -33,17 +33,10 @@ class munin {
     group   => 'www-data',
   }
 
-  service { 'munin-node':
-    require => [
-      Package[$packages],
-    ],
-    ensure => 'running',
-  }
-
   exec { 'reload nginx after installing munin':
     require => [
       Service['nginx'],
-      Service['munin-node'],
+      File['/etc/nginx/conf.d/munin.conf'],
     ],
     command => '/etc/init.d/nginx reload',
   }

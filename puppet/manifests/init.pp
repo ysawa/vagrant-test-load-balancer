@@ -13,3 +13,4 @@ include editors
 include nagios
 # include ganglia
 include munin
+include munin::node
