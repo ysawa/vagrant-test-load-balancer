@@ -36,24 +36,11 @@ class nginx {
     group   => 'www-data',
   }
 
-  file { '/etc/nginx/conf.d/default.conf':
-    require => [
-      Package['nginx'],
-      File['/etc/nginx/nginx.conf'],
-    ],
-    ensure  => 'file',
-    source  => 'puppet:///modules/nginx/conf.d/default.conf',
-    replace => 'no',
-    mode    => '0644',
-    owner   => 'www-data',
-    group   => 'www-data',
-  }
-
   service { 'nginx':
     require => [
       Package['nginx'],
       Package['php5-fpm'],
-      File['/etc/nginx/conf.d/default.conf'],
+      File['/etc/nginx/nginx.conf'],
     ],
     ensure => 'running',
   }
