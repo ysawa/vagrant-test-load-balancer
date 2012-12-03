@@ -9,7 +9,6 @@ node default {
   include graphicsmagick
   include redis
   include mongodb
-  include mongodb::replication
   include editors
   include nagios
   # include ganglia
@@ -21,4 +20,5 @@ node m0 inherits default {
 }
 
 node m1, m2, m3 inherits default {
+  include mongodb::replication
 }
