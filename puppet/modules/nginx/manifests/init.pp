@@ -36,6 +36,30 @@ class nginx {
     group   => 'www-data',
   }
 
+  file { '/var/www/index.html':
+    require => [
+      File['/etc/nginx/nginx.conf'],
+    ],
+    ensure  => 'file',
+    source  => 'puppet:///modules/nginx/www/index.html',
+    replace => 'no',
+    mode    => '0644',
+    owner   => 'www-data',
+    group   => 'www-data',
+  }
+
+  file { '/var/www/50x.html':
+    require => [
+      File['/etc/nginx/nginx.conf'],
+    ],
+    ensure  => 'file',
+    source  => 'puppet:///modules/nginx/www/50x.html',
+    replace => 'no',
+    mode    => '0644',
+    owner   => 'www-data',
+    group   => 'www-data',
+  }
+
   service { 'nginx':
     require => [
       Package['nginx'],

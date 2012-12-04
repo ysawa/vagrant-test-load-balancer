@@ -11,8 +11,8 @@ node default {
   include mongodb
   include editors
   include nagios
-  # include ganglia
   include munin::node
+  # include ganglia
 }
 
 node m0 inherits default {
