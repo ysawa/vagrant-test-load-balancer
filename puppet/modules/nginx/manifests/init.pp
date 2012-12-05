@@ -30,7 +30,7 @@ class nginx {
     ],
     ensure  => 'file',
     source  => 'puppet:///modules/nginx/nginx.conf',
-    # replace => 'no',
+    # replace => 'no', # TODO should replace only the first time
     mode    => '0644',
     owner   => 'www-data',
     group   => 'www-data',
