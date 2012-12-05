@@ -4,6 +4,7 @@ node default {
   include hosts
   include ppa
   include essentials
+  include ssl
   include php5
   include nginx
   include graphicsmagick
@@ -12,7 +13,8 @@ node default {
   include editors
   include nagios
   include munin::node
-  # include ssl
+  include email::dovecot
+  include email::postfix
   # include ganglia
 }
 

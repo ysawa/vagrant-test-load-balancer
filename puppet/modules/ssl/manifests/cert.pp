@@ -1,6 +1,6 @@
 define ssl::cert ($service = $title) {
 
-  package { 'install openssl':
+  package { 'install openssl for ssl::cert':
     require => [
     ],
     name   => 'openssl',
@@ -9,7 +9,7 @@ define ssl::cert ($service = $title) {
 
   file { '/tmp/puppet_ssl_cert.sh':
     require => [
-      Package['install openssl'],
+      Package['install openssl for ssl::cert'],
     ],
     ensure  => 'file',
     source  => 'puppet:///modules/ssl/cert.sh',
@@ -23,6 +23,7 @@ define ssl::cert ($service = $title) {
       File['/tmp/puppet_ssl_cert.sh'],
     ],
     cwd     => '/tmp/',
+    unless  => "/bin/ls /etc/ssl/private/${service}.key",
   }
 
   exec { "move crt":
