@@ -18,15 +18,13 @@ class nginx {
     require => [
       Package['fcgiwrap'],
       Service['fcgiwrap'],
-      # Exec['chown nginx directories'],
     ],
     ensure => 'installed'
   }
 
-  file { '/etc/nginx/nginx.conf':
+  file { '/tmp/puppet-nginx.conf':
     require => [
       Package['nginx'],
-      # Exec['chown nginx directories'],
     ],
     ensure  => 'file',
     source  => 'puppet:///modules/nginx/nginx.conf',
@@ -36,9 +34,18 @@ class nginx {
     group   => 'www-data',
   }
 
+  exec { 'replace /etc/nginx/nginx.conf':
+    require => [
+      Package['nginx'],
+      # Exec['chown nginx directories'],
+    ],
+    command => '/bin/mv /tmp/puppet-nginx.conf /etc/nginx/nginx.conf',
+    unless => '/usr/bin/test `cat /etc/nginx/nginx.conf | grep -c "PLACED BY PUPPET"$` -ne 0',
+  }
+
   file { '/var/www/index.html':
     require => [
-      File['/etc/nginx/nginx.conf'],
+      Exec['replace /etc/nginx/nginx.conf'],
     ],
     ensure  => 'file',
     source  => 'puppet:///modules/nginx/www/index.html',
@@ -50,7 +57,7 @@ class nginx {
 
   file { '/var/www/50x.html':
     require => [
-      File['/etc/nginx/nginx.conf'],
+      Exec['replace /etc/nginx/nginx.conf'],
     ],
     ensure  => 'file',
     source  => 'puppet:///modules/nginx/www/50x.html',
@@ -68,7 +75,7 @@ class nginx {
       Package['nginx'],
       Ssl::Cert['nginx'],
       Package['php5-fpm'],
-      File['/etc/nginx/nginx.conf'],
+      Exec['replace /etc/nginx/nginx.conf'],
     ],
     ensure => 'running',
   }

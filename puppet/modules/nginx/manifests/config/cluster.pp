@@ -3,7 +3,7 @@ class nginx::config::cluster {
   file { '/etc/nginx/conf.d/cluster.conf':
     require => [
       Package['nginx'],
-      File['/etc/nginx/nginx.conf'],
+      Exec['replace /etc/nginx/nginx.conf'],
     ],
     ensure  => 'file',
     source  => 'puppet:///modules/nginx/conf.d/cluster.conf',
