@@ -22,13 +22,12 @@ class nginx {
     ensure => 'installed'
   }
 
-  file { '/tmp/puppet-nginx.conf':
+  file { '/etc/nginx/nginx.conf.puppet':
     require => [
       Package['nginx'],
     ],
     ensure  => 'file',
     source  => 'puppet:///modules/nginx/nginx.conf',
-    # replace => 'no', # TODO should replace only the first time
     mode    => '0644',
     owner   => 'www-data',
     group   => 'www-data',
@@ -36,11 +35,11 @@ class nginx {
 
   exec { 'replace /etc/nginx/nginx.conf':
     require => [
+      File['/etc/nginx/nginx.conf.puppet'],
       Package['nginx'],
-      # Exec['chown nginx directories'],
     ],
-    command => '/bin/mv /tmp/puppet-nginx.conf /etc/nginx/nginx.conf',
-    unless => '/usr/bin/test `cat /etc/nginx/nginx.conf | grep -c "PLACED BY PUPPET"$` -ne 0',
+    command => '/bin/mv /etc/nginx/nginx.conf.puppet /etc/nginx/nginx.conf',
+    unless => '/usr/bin/test `/bin/cat /etc/nginx/nginx.conf | /bin/grep -c "USED BY PUPPET$"` -ne 0',
   }
 
   file { '/var/www/index.html':
