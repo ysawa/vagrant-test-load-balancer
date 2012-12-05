@@ -12,6 +12,7 @@ node default {
   include editors
   include nagios
   include munin::node
+  include certs
   # include ganglia
 }
 
