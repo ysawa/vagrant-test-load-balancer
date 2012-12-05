@@ -1,6 +1,9 @@
 class email::postfix {
 
   package { 'postfix':
+    require => [
+      Exec['apt-get update after adding ppa'],
+    ],
     ensure => 'installed',
   }
 
