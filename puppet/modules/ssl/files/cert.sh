@@ -36,9 +36,9 @@ DATE=`yearmon`
 
 CN=`fqdn $HOST`
 
-csr="${HOST}-${DATE}-csr.pem"
-key="${HOST}-${DATE}-key.pem"
-crt="${HOST}-${DATE}-crt.pem"
+csr="puppet-ssl-cert.csr"
+key="puppet-ssl-cert.key"
+crt="puppet-ssl-cert.crt"
 
 cd /tmp
 openssl req -new -newkey rsa:2048 -keyout $key -nodes -out $csr <<EOF

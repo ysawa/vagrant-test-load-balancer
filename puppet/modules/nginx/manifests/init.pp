@@ -60,9 +60,13 @@ class nginx {
     group   => 'www-data',
   }
 
+  ssl::cert { 'nginx':
+  }
+
   service { 'nginx':
     require => [
       Package['nginx'],
+      Ssl::Cert['nginx'],
       Package['php5-fpm'],
       File['/etc/nginx/nginx.conf'],
     ],
