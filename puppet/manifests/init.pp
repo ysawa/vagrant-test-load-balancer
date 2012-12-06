@@ -26,4 +26,5 @@ node /^web/ inherits default {
 node /^app/ inherits default {
   include mongodb::replication
   include nginx::config::default
+  include ptetex3
 }
