@@ -22,7 +22,7 @@ class nagios {
       Package['libgd2-xpm-dev', 'build-essential', 'git-core', 'automake', 'autoconf'],
     ],
     cwd       => '/tmp/',
-    unless => '/bin/ls /usr/local/nagios/bin/nagios', # TODO make condition more specifically
+    unless => '/bin/ls /usr/local/nagios/bin/nagios',
   }
 
   file { '/tmp/puppet_nagios_install_plugins.sh':
@@ -45,8 +45,8 @@ class nagios {
     ],
     cwd       => '/tmp/',
     timeout => 600,
-    onlyif => '/bin/ls /usr/local/nagios/bin/nagios', # TODO make condition more specifically
-    unless => '/bin/ls /usr/local/nagios/libexec/check_dhcp', # TODO make condition more specifically
+    onlyif => '/bin/ls /usr/local/nagios/bin/nagios',
+    unless => '/bin/ls /usr/local/nagios/libexec/check_dhcp',
   }
 
   $nginx_directories = ['/var/log/nginx/nagios']
