@@ -31,7 +31,7 @@ define ssl::cert ($service = $title) {
       Exec['/tmp/puppet_ssl_cert.sh'],
     ],
     command => "/bin/mv /tmp/puppet-ssl-cert.crt /etc/ssl/certs/${service}.crt",
-    onlyif => '/bin/ls /tmp/puppet-ssl-cert.crt', # TODO make condition more specifically
+    onlyif => '/bin/ls /tmp/puppet-ssl-cert.crt',
     unless  => "/bin/ls /etc/ssl/certs/${service}.crt",
   }
 
@@ -40,7 +40,7 @@ define ssl::cert ($service = $title) {
       Exec['/tmp/puppet_ssl_cert.sh'],
     ],
     command => "/bin/mv /tmp/puppet-ssl-cert.csr /etc/ssl/certs/${service}.csr",
-    onlyif => '/bin/ls /tmp/puppet-ssl-cert.csr', # TODO make condition more specifically
+    onlyif => '/bin/ls /tmp/puppet-ssl-cert.csr',
     unless  => "/bin/ls /etc/ssl/certs/${service}.csr",
   }
 
@@ -49,7 +49,7 @@ define ssl::cert ($service = $title) {
       Exec['/tmp/puppet_ssl_cert.sh'],
     ],
     command => "/bin/mv /tmp/puppet-ssl-cert.key /etc/ssl/private/${service}.key",
-    onlyif => '/bin/ls /tmp/puppet-ssl-cert.key', # TODO make condition more specifically
+    onlyif => '/bin/ls /tmp/puppet-ssl-cert.key',
     unless  => "/bin/ls /etc/ssl/private/${service}.key",
   }
 }
