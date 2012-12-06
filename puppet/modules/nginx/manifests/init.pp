@@ -27,7 +27,6 @@ class nginx {
       Package['nginx'],
     ],
     ensure  => 'file',
-    replace => 'no',
     source  => 'puppet:///modules/nginx/nginx.conf',
     mode    => '0644',
     owner   => 'www-data',

@@ -47,21 +47,28 @@ class redis {
     group   => root,
   }
 
-  file { '/etc/redis.conf':
+  file { '/etc/redis.conf.puppet':
     require => [
       Exec['chown redis directories'],
     ],
     ensure  => 'file',
     source  => 'puppet:///modules/redis/redis.conf',
-    # replace => 'no',
     mode    => '0644',
     owner   => redis,
     group   => redis,
   }
 
+  exec { 'replace /etc/redis.conf':
+    require => [
+      File['/etc/redis.conf.puppet'],
+    ],
+    command => '/bin/mv /etc/redis.conf.puppet /etc/redis.conf',
+    unless => '/usr/bin/test `/bin/cat /etc/redis.conf | /bin/grep -c "USED BY PUPPET$"` -ne 0',
+  }
+
   file { '/etc/init/redis-server.conf':
     require => [
-      File['/etc/redis.conf'],
+      Exec['replace /etc/redis.conf'],
     ],
     ensure  => 'file',
     source  => 'puppet:///modules/redis/init/redis-server.conf',
