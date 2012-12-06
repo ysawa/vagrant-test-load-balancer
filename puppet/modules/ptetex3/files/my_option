@@ -1,0 +1,153 @@
+### "my_option.sample"
+### 推奨設定は先頭にまとめてあります。
+### それ以外はコメントにしてあります。
+### シェルスクリプトと同じで # 以降はコメントです。
+### common.sh で自動判別している設定もあります。
+### "../my_option" というファイルを作って、必要なものを書き写して下さい。
+### "./my_option" や "../my_option.host名" でもかまいません。
+### version 2008/06/30
+
+### (推奨) 既にライブラリが存在すれば、それを使う
+conf_option --with-system-zlib
+conf_option --with-system-pnglib
+conf_option --with-system-gd
+conf_option --with-system-ncurses
+conf_option --with-system-t1lib
+
+### (推奨) 使わないツールを除外する（コンパイル時間を節約）
+conf_option --without-dviljk
+conf_option --without-info
+conf_option --without-texi2html
+conf_option --without-texinfo
+# conf_option --without-dvipng
+# conf_option --without-dialog
+
+### 日本語 pTeX 拡張あり (dvips, xdvi) ディフォルト
+JAPANESE=traditional
+### 日本語 pTeX 拡張あり (pdvips, pxdvi)
+# JAPANESE=international
+### 日本語 pTeX 拡張なし
+# JAPANESE=without
+
+### ptex/platex コマンドの入出力文字コードを指定（ディフォルトは EUC）
+### 'UTF8' は ptetex3 の独自拡張
+# KANJI_CODE=EUC
+# KANJI_CODE=SJIS
+# KANJI_CODE=JIS
+KANJI_CODE=UTF8
+
+### platex209 を使わない（ライセンスがクリアになる）
+PLATEX209=no
+
+
+### kanji <=> unicode 変換に iconv を使う
+# conf_option --enable-kanji-iconv
+
+### strip しない（デバッグ情報を残す）
+# STRIP=no
+
+### xdvi のツールキットを指定する
+###（ディフォルトは自動選択、motif が最良の選択肢）
+conf_option --with-xdvi-x-toolkit=motif
+# conf_option --with-xdvi-x-toolkit=xaw
+# conf_option --with-xdvi-x-toolkit=xaw3d
+# conf_option --with-xdvi-x-toolkit=neXtaw
+
+### X 環境がない場合
+conf_option --without-x
+conf_option --without-xdvik
+
+### make test で xdvi を除外する
+XDVI=echo
+PXDVI=echo
+
+### make test で ps2pdf を除外する
+PSPDF=echo
+
+### make font でフォント検索するディレクトリを追加指定
+# EXTRA_CMAP="/usr/local/cmap;/c/program files/cmap"
+# EXTRA_TRUETYPE="/usr/local/ttf;/c/program files/truetype"
+# EXTRA_OPENTYPE="/usr/local/otf;/c/program files/opentype"
+
+### ncurses 関連でエラーが出る場合に有効
+# conf_option --without-texinfo
+# conf_option --without-dialog
+
+### Mac OS X Leopard の不具合への対処
+# export CFLAGS=-O2
+
+### ライブラリの場所を明示的に指定する
+# CPPFLAGS="-I/usr/local/include -I/usr/sfw/include -I/opt/sfw/include -I/usr/openwin/include"
+# LDFLAGS="-L/usr/local/lib -L/usr/sfw/lib -L/opt/sfw/lib -L/usr/openwin/lib"
+# LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/sfw/lib:/opt/sfw/lib:/usr/openwin/lib
+# export LDFLAGS CPPFLAGS LD_LIBRARY_PATH
+
+### スクリプトのデバッグ
+# set -x
+
+
+### GNU のツールを使う［自動判別］
+# MAKE=gmake
+# PATCH=gpatch
+
+
+### もし md5sum コマンドがあれば［自動判別］
+# MD5=md5sum
+
+### もし gmd5sum コマンドがあれば［自動判別］
+# MD5=gmd5sum
+
+### もし digest コマンドがあれば (Solaris 10)［自動判別］
+# MD5="digest -a md5"
+
+### もし md5 も md5sum もなければ（危険）
+# MD5=none
+
+
+### perl がある場合（jcode.pl は同梱、ディフォルト）
+# NKFJIS="perl -I `pwd`/archive -ne 'BEGIN {require \"jcode.pl\";} print jcode::jis(\$_)'"
+
+### nkf がある場合［自動判別］
+# NKFJIS="nkf -jd"
+
+### qkc がある場合
+# NKFJIS="qkc -bj -u"
+
+### ruby がある場合
+# NKFJIS="ruby -rkconv -ne 'print Kconv::tojis(\$_)'"
+
+### perl + Jcode.pm がある場合
+# NKFJIS="perl -MJcode -ne 'print jcode(\$_)->jis'"
+
+
+### freetype-2.1.10 以降があれば［自動判別］
+# SYSTEM_FREETYPE2=yes
+
+
+### 一時的にインストールする（作業用）ディレクトリを指定
+# TMP_PREFIX=`pwd`/build
+
+### 最終的にインストールするディレクトリを指定
+# PREFIX=%{_prefix}
+# DATADIR=%{_datadir}
+
+### teTeX-{src,texmf}-*.tar.gz の場所を指定（RPM に有用）
+# SRC_DIR=%{_sourcedir}
+
+### teTeX-src-*.tar.gz が既に展開されたディレクトリを指定（RPM に有用）
+# TEXSRC_EXTRACTED=%{_builddir}
+
+### 既に展開された teTeX-texmf-*.tar.gz を指定（再インストールや RPM に有用）
+# TEXMFDIST=/usr/local/teTeX/share/texmf-dist
+
+### フォントを自動生成するためのディレクトリを指定
+# make_option vartexfonts=/var/lib/texmf
+
+### ディスクを少々節約する（知識がないと設定は困難）
+### solaris ではうまく動かないことが多い
+# conf_option --enable-shared
+
+### マルチプロセッサ環境でコンパイル
+### （ほとんど高速化されない上に、
+### jbibtex のコンパイルで失敗するので指定してはいけない）
+# make_option -j 2
