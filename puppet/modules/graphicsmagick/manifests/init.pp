@@ -17,6 +17,6 @@ class graphicsmagick {
       Package['build-essential'],
     ],
     cwd       => '/tmp/',
-    unless => '/bin/ls /usr/local/bin/GraphicsMagick-config', # TODO make condition more specifically
+    unless => '/bin/ls /usr/local/bin/GraphicsMagick-config',
   }
 }
