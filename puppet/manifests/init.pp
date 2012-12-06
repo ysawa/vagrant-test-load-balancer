@@ -18,12 +18,12 @@ node default {
   # include ganglia
 }
 
-node m0 inherits default {
+node web0 inherits default {
   include munin
   include nginx::config::cluster
 }
 
-node m1, m2, m3 inherits default {
+node app1, app2, app3 inherits default {
   include mongodb::replication
   include nginx::config::default
 }

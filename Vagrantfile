@@ -12,39 +12,39 @@ Vagrant::Config.run do |config|
     puppet.module_path = "puppet/modules"
   end
 
-  config.vm.define :m0 do |c|
-    c.vm.customize ["modifyvm", :id, "--name", "m0", "--memory", "512"]
-    c.vm.host_name = 'm0'
+  config.vm.define :web0 do |c|
+    c.vm.customize ["modifyvm", :id, "--name", "web0", "--memory", "512"]
+    c.vm.host_name = 'web0'
     c.vm.forward_port 22, 10022, auto: true
     c.vm.forward_port 80, 10080
     c.vm.network :hostonly, "192.168.2.10"
   end
 
-  config.vm.define :m1 do |c|
+  config.vm.define :app0 do |c|
     c.vm.box = "precise64"
-    c.vm.customize ["modifyvm", :id, "--name", "m1", "--memory", "768"]
-    c.vm.host_name = 'm1'
+    c.vm.customize ["modifyvm", :id, "--name", "app0", "--memory", "768"]
+    c.vm.host_name = 'app0'
     c.vm.forward_port 22, 11022, auto: true
     c.vm.forward_port 80, 11080
-    c.vm.network :hostonly, "192.168.2.11"
+    c.vm.network :hostonly, "192.168.3.10"
   end
 
-  config.vm.define :m2 do |c|
+  config.vm.define :app1 do |c|
     c.vm.box = "precise64"
-    c.vm.customize ["modifyvm", :id, "--name", "m2", "--memory", "768"]
-    c.vm.host_name = 'm2'
-    c.vm.forward_port 22, 12022, auto: true
-    c.vm.forward_port 80, 12080
-    c.vm.network :hostonly, "192.168.2.12"
+    c.vm.customize ["modifyvm", :id, "--name", "app1", "--memory", "768"]
+    c.vm.host_name = 'app1'
+    c.vm.forward_port 22, 11122, auto: true
+    c.vm.forward_port 80, 11180
+    c.vm.network :hostonly, "192.168.3.11"
   end
 
-  config.vm.define :m3 do |c|
+  config.vm.define :app2 do |c|
     c.vm.box = "precise64"
-    c.vm.customize ["modifyvm", :id, "--name", "m3", "--memory", "768"]
-    c.vm.host_name = 'm3'
-    c.vm.forward_port 22, 13022, auto: true
-    c.vm.forward_port 80, 13080
-    c.vm.network :hostonly, "192.168.2.13"
+    c.vm.customize ["modifyvm", :id, "--name", "app2", "--memory", "768"]
+    c.vm.host_name = 'app2'
+    c.vm.forward_port 22, 11222, auto: true
+    c.vm.forward_port 80, 11280
+    c.vm.network :hostonly, "192.168.3.12"
   end
 
   # Every Vagrant virtual environment requires a box to build off of.
