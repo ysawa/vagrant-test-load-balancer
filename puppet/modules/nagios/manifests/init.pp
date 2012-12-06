@@ -19,8 +19,7 @@ class nagios {
   exec { "/tmp/puppet_nagios_install.sh":
     require => [
       File['/tmp/puppet_nagios_install.sh'],
-      Package['libgd2-xpm-dev'],
-      Package['build-essential', 'git-core', 'automake', 'autoconf'],
+      Package['libgd2-xpm-dev', 'build-essential', 'git-core', 'automake', 'autoconf'],
     ],
     cwd       => '/tmp/',
     unless => '/bin/ls /usr/local/nagios/bin/nagios', # TODO make condition more specifically
