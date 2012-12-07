@@ -9,7 +9,7 @@ node default {
   include nginx::install
   include graphicsmagick
   include redis
-  include mongodb
+  include mongodb::install
   include editors
   include nagios
   include munin::node
@@ -19,7 +19,7 @@ node default {
 }
 
 node /^web/ inherits default {
-  include munin
+  include munin::install
   include nginx::config::cluster
 }
 
