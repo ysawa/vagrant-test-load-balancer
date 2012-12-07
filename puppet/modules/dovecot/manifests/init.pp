@@ -1,4 +1,4 @@
-class email::dovecot {
+class dovecot {
 
   package { 'dovecot-core':
     require => [

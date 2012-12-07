@@ -13,8 +13,8 @@ node default {
   include editors
   include nagios
   include munin::node
-  include email::dovecot
-  include email::postfix
+  include dovecot
+  include postfix
   # include ganglia
 }
 

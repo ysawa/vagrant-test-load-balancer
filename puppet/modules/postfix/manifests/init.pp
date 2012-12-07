@@ -1,4 +1,4 @@
-class email::postfix {
+class postfix {
 
   package { 'postfix':
     require => [
