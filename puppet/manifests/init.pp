@@ -6,7 +6,7 @@ node default {
   include essentials
   include ssl
   include php5
-  include nginx
+  include nginx::install
   include graphicsmagick
   include redis
   include mongodb

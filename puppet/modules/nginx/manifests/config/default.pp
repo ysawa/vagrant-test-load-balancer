@@ -2,8 +2,7 @@ class nginx::config::default {
 
   file { '/etc/nginx/conf.d/default.conf':
     require => [
-      Package['nginx'],
-      Exec['replace /etc/nginx/nginx.conf'],
+      Class['nginx::install'],
     ],
     ensure  => file,
     source  => 'puppet:///modules/nginx/conf.d/default.conf',
