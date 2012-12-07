@@ -4,16 +4,16 @@ define ssl::cert ($service = $title) {
     require => [
     ],
     name   => 'openssl',
-    ensure => 'installed',
+    ensure => installed,
   }
 
   file { '/tmp/puppet_ssl_cert.sh':
     require => [
       Package['install openssl for ssl::cert'],
     ],
-    ensure  => 'file',
+    ensure  => file,
     source  => 'puppet:///modules/ssl/cert.sh',
-    mode    => '0700',
+    mode    => 0700,
     owner   => root,
     group   => root,
   }

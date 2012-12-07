@@ -1,9 +1,9 @@
 class redis {
 
   file { '/tmp/puppet_redis_install.sh':
-    ensure  => 'file',
+    ensure  => file,
     source  => 'puppet:///modules/redis/install.sh',
-    mode    => '0777',
+    mode    => 0777,
     owner   => root,
     group   => root,
   }
@@ -22,10 +22,10 @@ class redis {
     require => [
       Exec["/tmp/puppet_redis_install.sh"],
     ],
-    ensure  => 'directory',
-    mode    => '0755',
-    owner   => 'redis',
-    group   => 'redis',
+    ensure  => directory,
+    mode    => 0755,
+    owner   => redis,
+    group   => redis,
   }
 
   exec { 'chown redis directories':
@@ -39,10 +39,10 @@ class redis {
     require => [
       Exec['chown redis directories'],
     ],
-    ensure  => 'file',
+    ensure  => file,
     source  => 'puppet:///modules/redis/redis-server.sh',
-    replace => 'no',
-    mode    => '0777',
+    replace => no,
+    mode    => 0777,
     owner   => root,
     group   => root,
   }
@@ -51,9 +51,9 @@ class redis {
     require => [
       Exec['chown redis directories'],
     ],
-    ensure  => 'file',
+    ensure  => file,
     source  => 'puppet:///modules/redis/redis.conf',
-    mode    => '0644',
+    mode    => 0644,
     owner   => redis,
     group   => redis,
   }
@@ -70,10 +70,10 @@ class redis {
     require => [
       Exec['replace /etc/redis.conf'],
     ],
-    ensure  => 'file',
+    ensure  => file,
     source  => 'puppet:///modules/redis/init/redis-server.conf',
-    replace => 'no',
-    mode    => '0644',
+    replace => no,
+    mode    => 0644,
     owner   => root,
     group   => root,
   }

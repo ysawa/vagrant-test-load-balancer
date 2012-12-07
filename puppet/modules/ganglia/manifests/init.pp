@@ -6,7 +6,7 @@ class ganglia {
       Package['fcgiwrap'],
       Service['fcgiwrap'],
     ],
-    ensure => 'installed'
+    ensure => installed,
   }
 
   $nginx_directories = ['/var/log/nginx/ganglia-webfrontend']
@@ -15,10 +15,10 @@ class ganglia {
       Package['nginx'],
       Package[$packages],
     ],
-    ensure  => 'directory',
-    mode    => '0755',
-    owner   => 'www-data',
-    group   => 'www-data',
+    ensure  => directory,
+    mode    => 0755,
+    owner   => www-data,
+    group   => www-data,
   }
 
   file { '/etc/nginx/conf.d/ganglia-webfrontend.conf':
@@ -26,12 +26,12 @@ class ganglia {
       Package['nginx'],
       Package[$packages],
     ],
-    ensure  => 'directory',
-    replace => 'no',
+    ensure  => directory,
+    replace => no,
     source  => 'puppet:///modules/ganglia/nginx.conf',
-    mode    => '0644',
-    owner   => 'www-data',
-    group   => 'www-data',
+    mode    => 0644,
+    owner   => www-data,
+    group   => www-data,
   }
 
   $services = ['ganglia-monitor', 'gmetad']
@@ -39,7 +39,7 @@ class ganglia {
     require => [
       Package[$packages],
     ],
-    ensure => 'running',
+    ensure => running,
   }
 
   exec { 'reload nginx after installing ganglia':

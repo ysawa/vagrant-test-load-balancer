@@ -3,9 +3,9 @@ class graphicsmagick {
   package { ['imagemagick']: ensure => "installed" }
 
   file { '/tmp/puppet_graphicsmagick_install.sh':
-    ensure  => 'file',
+    ensure  => file,
     source  => 'puppet:///modules/graphicsmagick/install.sh',
-    mode    => '0777',
+    mode    => 0777,
     owner   => root,
     group   => root,
   }

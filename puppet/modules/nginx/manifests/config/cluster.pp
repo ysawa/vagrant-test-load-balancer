@@ -5,12 +5,12 @@ class nginx::config::cluster {
       Package['nginx'],
       Exec['replace /etc/nginx/nginx.conf'],
     ],
-    ensure  => 'file',
+    ensure  => file,
     source  => 'puppet:///modules/nginx/conf.d/cluster.conf',
-    replace => 'no',
-    mode    => '0644',
-    owner   => 'www-data',
-    group   => 'www-data',
+    replace => no,
+    mode    => 0644,
+    owner   => www-data,
+    group   => www-data,
   }
 
   exec { 'reload nginx after uploading cluster.conf':

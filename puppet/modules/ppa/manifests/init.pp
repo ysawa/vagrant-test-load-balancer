@@ -7,7 +7,7 @@ class ppa {
     require => [
       Exec['apt-get update'],
     ],
-    ensure => "installed",
+    ensure => installed,
   }
 
   exec { 'use ppa:nginx/stable':

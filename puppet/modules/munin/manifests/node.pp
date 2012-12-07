@@ -5,13 +5,13 @@ class munin::node {
 #    require => [
 #      Package['munin'],
 #    ],
-    ensure => 'installed'
+    ensure => installed,
   }
 
   service { 'munin-node':
     require => [
       Package[$packages],
     ],
-    ensure => 'running',
+    ensure => running,
   }
 }

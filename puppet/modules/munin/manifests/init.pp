@@ -7,7 +7,7 @@ class munin {
       Package['apache2', 'apache2.2-bin', 'apache2.2-common'],
       Service['fcgiwrap'],
     ],
-    ensure => 'installed'
+    ensure => installed,
   }
 
   $nginx_directories = ['/var/log/nginx/munin']
@@ -15,22 +15,22 @@ class munin {
     require => [
       Package['munin'],
     ],
-    ensure  => 'directory',
-    mode    => '0755',
-    owner   => 'www-data',
-    group   => 'www-data',
+    ensure  => directory,
+    mode    => 0755,
+    owner   => www-data,
+    group   => www-data,
   }
 
   file { '/etc/nginx/conf.d/munin.conf':
     require => [
       Package['munin'],
     ],
-    ensure  => 'directory',
-    replace => 'no',
+    ensure  => directory,
+    replace => no,
     source  => 'puppet:///modules/munin/nginx.conf',
-    mode    => '0644',
-    owner   => 'www-data',
-    group   => 'www-data',
+    mode    => 0644,
+    owner   => www-data,
+    group   => www-data,
   }
 
   exec { 'reload nginx after installing munin':

@@ -8,13 +8,13 @@ class php5 {
       Exec['use ppa:nathan-renniewaldock/ppa'],
       Exec['apt-get update after adding ppa'],
     ],
-    ensure => "installed"
+    ensure => installed,
   }
 
   service { 'php5-fpm':
     require => [
       Package['php5-fpm'],
     ],
-    ensure => 'running',
+    ensure => running,
   }
 }

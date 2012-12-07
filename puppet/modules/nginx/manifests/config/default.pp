@@ -5,12 +5,12 @@ class nginx::config::default {
       Package['nginx'],
       Exec['replace /etc/nginx/nginx.conf'],
     ],
-    ensure  => 'file',
+    ensure  => file,
     source  => 'puppet:///modules/nginx/conf.d/default.conf',
-    replace => 'no',
-    mode    => '0644',
-    owner   => 'www-data',
-    group   => 'www-data',
+    replace => no,
+    mode    => 0644,
+    owner   => www-data,
+    group   => www-data,
   }
 
   exec { 'reload nginx after uploading default.conf':

@@ -1,9 +1,9 @@
 class mongodb {
 
   file { '/tmp/puppet_mongodb_install.sh':
-    ensure  => 'file',
+    ensure  => file,
     source  => 'puppet:///modules/mongodb/install.sh',
-    mode    => '0777',
+    mode    => 0777,
     owner   => root,
     group   => root,
   }
@@ -14,10 +14,10 @@ class mongodb {
     require => [
       File['/tmp/puppet_mongodb_install.sh'],
     ],
-    ensure  => 'file',
+    ensure  => file,
     source  => 'puppet:///modules/mongodb/mongodb.conf',
-    replace => 'no',
-    mode    => '0644',
+    replace => no,
+    mode    => 0644,
     owner   => root,
     group   => root,
   }
@@ -34,10 +34,10 @@ class mongodb {
     require => [
       Exec["/tmp/puppet_mongodb_install.sh"],
     ],
-    ensure  => 'file',
+    ensure  => file,
     source  => 'puppet:///modules/mongodb/mongodb.conf',
-    replace => 'no',
-    mode    => '0644',
+    replace => no,
+    mode    => 0644,
     owner   => mongodb,
     group   => mongodb,
   }

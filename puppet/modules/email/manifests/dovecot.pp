@@ -4,13 +4,13 @@ class email::dovecot {
     require => [
       Exec['apt-get update after adding ppa'],
     ],
-    ensure => 'installed',
+    ensure => installed,
   }
 
   service { 'dovecot':
     require => [
       Package['dovecot-core'],
     ],
-    ensure => 'running',
+    ensure => running,
   }
 }

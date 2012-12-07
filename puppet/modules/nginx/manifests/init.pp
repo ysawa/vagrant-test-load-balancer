@@ -46,24 +46,24 @@ class nginx {
     require => [
       Exec['replace /etc/nginx/nginx.conf'],
     ],
-    ensure  => 'file',
+    ensure  => file,
     source  => 'puppet:///modules/nginx/www/index.html',
-    replace => 'no',
-    mode    => '0644',
-    owner   => 'www-data',
-    group   => 'www-data',
+    replace => no,
+    mode    => 0644,
+    owner   => www-data,
+    group   => www-data,
   }
 
   file { '/var/www/50x.html':
     require => [
       Exec['replace /etc/nginx/nginx.conf'],
     ],
-    ensure  => 'file',
+    ensure  => file,
     source  => 'puppet:///modules/nginx/www/50x.html',
-    replace => 'no',
-    mode    => '0644',
-    owner   => 'www-data',
-    group   => 'www-data',
+    replace => no,
+    mode    => 0644,
+    owner   => www-data,
+    group   => www-data,
   }
 
   ssl::cert { 'nginx':

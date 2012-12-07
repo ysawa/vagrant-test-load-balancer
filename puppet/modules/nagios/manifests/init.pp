@@ -9,9 +9,9 @@ class nagios {
     require => [
       User['nagios'],
     ],
-    ensure  => 'file',
+    ensure  => file,
     source  => 'puppet:///modules/nagios/install.sh',
-    mode    => '0700',
+    mode    => 0700,
     owner   => root,
     group   => root,
   }
@@ -31,9 +31,9 @@ class nagios {
       Package['git-core', 'gettext'],
       Exec["/tmp/puppet_nagios_install.sh"],
     ],
-    ensure  => 'file',
+    ensure  => file,
     source  => 'puppet:///modules/nagios/install_plugins.sh',
-    mode    => '0700',
+    mode    => 0700,
     owner   => root,
     group   => root,
   }
@@ -55,10 +55,10 @@ class nagios {
       Package['nginx'],
       Exec["/tmp/puppet_nagios_install.sh"],
     ],
-    ensure  => 'directory',
-    mode    => '0755',
-    owner   => 'www-data',
-    group   => 'www-data',
+    ensure  => directory,
+    mode    => 0755,
+    owner   => www-data,
+    group   => www-data,
   }
 
   file { '/etc/nginx/conf.d/nagios.conf':
@@ -66,12 +66,12 @@ class nagios {
       Package['nginx'],
       Exec["/tmp/puppet_nagios_install.sh"],
     ],
-    ensure  => 'directory',
-    replace => 'no',
+    ensure  => directory,
+    replace => no,
     source  => 'puppet:///modules/nagios/nginx.conf',
-    mode    => '0644',
-    owner   => 'www-data',
-    group   => 'www-data',
+    mode    => 0644,
+    owner   => www-data,
+    group   => www-data,
   }
 
   service { 'nagios':
@@ -79,7 +79,7 @@ class nagios {
       Exec["/tmp/puppet_nagios_install.sh"],
       Exec["/tmp/puppet_nagios_install_plugins.sh"],
     ],
-    ensure => 'running',
+    ensure => running,
   }
 
   exec { 'reload nginx after installing nagios':
