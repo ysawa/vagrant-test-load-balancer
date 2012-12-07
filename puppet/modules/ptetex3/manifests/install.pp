@@ -6,11 +6,14 @@ class ptetex3::install {
   }
 
   file { '/tmp/puppet_ptetex3_install.sh':
+    require => [
+      User['ptetex3'],
+    ],
     ensure  => file,
     source  => 'puppet:///modules/ptetex3/install.sh',
-    mode    => 0700,
-    owner   => root,
-    group   => root,
+    mode    => 0755,
+    owner   => ptetex3,
+    group   => ptetex3,
   }
 
   file { '/tmp/puppet_ptetex3_my_option':
@@ -30,7 +33,8 @@ class ptetex3::install {
       File['/tmp/puppet_ptetex3_install.sh', '/tmp/puppet_ptetex3_my_option'],
       User['ptetex3'],
     ],
-    cwd       => '/tmp/',
+    cwd     => '/tmp/',
+    user    => ptetex3,
     timeout => 1200,
     # unless => '/bin/ls /usr/local/ptetex3/libexec/check_dhcp',
   }

@@ -16,6 +16,8 @@ class nginx::install {
   $packages = ['nginx']
   package { $packages:
     require => [
+      Class['php5::install'],
+      Class['ppa::repositories::nginx-stable'],
       Package['fcgiwrap'],
       Service['fcgiwrap'],
     ],

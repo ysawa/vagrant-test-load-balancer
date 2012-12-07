@@ -5,8 +5,7 @@ class php5::install {
   ]
   package { $packages:
     require => [
-      Exec['use ppa:nathan-renniewaldock/ppa'],
-      Exec['apt-get update after adding ppa'],
+      Class['ppa::repositories::nathan-renniewaldock-ppa'],
     ],
     ensure => installed,
   }

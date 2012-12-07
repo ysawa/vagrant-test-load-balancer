@@ -2,7 +2,7 @@ class postfix::install {
 
   package { 'postfix':
     require => [
-      Exec['apt-get update after adding ppa'],
+      Class['ppa::repositories::nathan-renniewaldock-ppa'],
     ],
     ensure => installed,
   }

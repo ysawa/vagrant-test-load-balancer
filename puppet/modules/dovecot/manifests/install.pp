@@ -2,7 +2,7 @@ class dovecot::install {
 
   package { 'dovecot-core':
     require => [
-      Exec['apt-get update after adding ppa'],
+      Class['ppa::repositories::nathan-renniewaldock-ppa'],
     ],
     ensure => installed,
   }
