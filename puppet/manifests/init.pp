@@ -15,6 +15,7 @@ node default {
   include munin::node
   include dovecot
   include postfix
+  include rvm
   # include ganglia
 }
 
@@ -27,4 +28,9 @@ node /^app/ inherits default {
   include mongodb::replication
   include nginx::config::default
   include ptetex3
+  user { 'app':
+    ensure => present,
+    managehome => true,
+  }
+  rvm::user{ 'app': }
 }
