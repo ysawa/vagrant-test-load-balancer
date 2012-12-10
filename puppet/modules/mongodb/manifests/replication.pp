@@ -10,7 +10,7 @@ class mongodb::replication {
       mode => 0755,
       owner => mongodb,
       group => mongodb,
-      content => template("mongodb/replication/initiate.erb"),
+      content => template("mongodb/replication/initiate.sh.erb"),
     }
 
     exec { $script:
