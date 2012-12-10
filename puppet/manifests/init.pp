@@ -1,6 +1,14 @@
 
 node default {
-  exec { 'apt-get update': command => '/usr/bin/apt-get update -y', }
+  exec { 'apt-get update':
+    command => '/usr/bin/apt-get update -y',
+  }
+  exec { 'apt-get upgrade':
+    require => [
+      Exec['apt-get update'],
+    ],
+    command => '/usr/bin/apt-get upgrade -y',
+  }
   include hosts
   include ppa
   include essentials
