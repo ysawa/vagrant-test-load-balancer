@@ -4,13 +4,13 @@ class nginx::install {
   package { $apache_packages: ensure => "absent" }
 
   package { 'fcgiwrap':
-    ensure => 'installed',
+    ensure => installed,
   }
   service { 'fcgiwrap':
     require => [
       Package['fcgiwrap'],
     ],
-    ensure => 'running',
+    ensure => running,
   }
 
   $packages = ['nginx']
@@ -21,18 +21,18 @@ class nginx::install {
       Package['fcgiwrap'],
       Service['fcgiwrap'],
     ],
-    ensure => 'installed'
+    ensure => installed
   }
 
   file { '/etc/nginx/nginx.conf.puppet':
     require => [
       Package['nginx'],
     ],
-    ensure  => 'file',
+    ensure  => file,
     source  => 'puppet:///modules/nginx/nginx.conf',
-    mode    => '0644',
-    owner   => 'www-data',
-    group   => 'www-data',
+    mode    => 0644,
+    owner   => www-data,
+    group   => www-data,
   }
 
   exec { 'replace /etc/nginx/nginx.conf':
@@ -78,6 +78,6 @@ class nginx::install {
       Package['php5-fpm'],
       Exec['replace /etc/nginx/nginx.conf'],
     ],
-    ensure => 'running',
+    ensure => running,
   }
 }
