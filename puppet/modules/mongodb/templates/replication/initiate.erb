@@ -1,0 +1,23 @@
+#!/bin/bash
+
+<% require 'rubygems' %>
+<% require 'json' %>
+
+<%# command => '/bin/echo "var config = {_id:\"set01\",members:[{_id:0, host:\"192.168.3.10:27017\"},{_id:1, host:\"192.168.3.11:27017\"},{_id:2, host:\"192.168.3.12:27017\"}]}; rs.initiate(config);" | /usr/bin/mongo', %>
+<% if @host.is_a? Array %>
+  <% host_list = @host %>
+<% elsif @host.is_a? String %>
+  <% host_list = [@host] %>
+<% else %>
+  <% host_list = [] %>
+<% end %>
+<% members = [] %>
+<% host_list.each_with_index do |host, id| %>
+  <% members << { :_id => id, :host => host } %>
+<% end %>
+<% if members.size > 0 %>
+<% config = { :_id => @replicaset , :members => members } %>
+<% script = "var config = #{config.to_json}; rs.initiate(config);" %>
+
+/bin/echo '<%= script %>' | /usr/bin/mongo
+<% end %>

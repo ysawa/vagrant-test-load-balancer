@@ -34,6 +34,15 @@ node /^web/ inherits default {
 
 node /^app/ inherits default {
   include mongodb::replication
+
+  mongodb::replication::initiate { 'set01':
+    host => [
+      "192.168.3.10:27017",
+      "192.168.3.11:27017",
+      "192.168.3.12:27017",
+    ]
+  }
+
   include nginx::config::default
   include ptetex3
   user { 'app':
