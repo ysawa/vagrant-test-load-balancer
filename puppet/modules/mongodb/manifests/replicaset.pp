@@ -18,7 +18,7 @@ class mongodb::replicaset {
         Class['mongodb::install'],
       ],
       user => mongodb,
-      onlyif => '/bin/ls /usr/bin/mongod && /bin/ls /usr/bin/mongo', # TODO make condition more specifically
+      onlyif => '/bin/ls /usr/bin/mongod && /bin/ls /usr/bin/mongo',
     }
   }
 }
