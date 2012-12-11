@@ -27,15 +27,15 @@ class ptetex3::install {
     group   => ptetex3,
   }
 
-  # perl -p -i.bak -e 's/_IO_ssize_t getline (/_IO_ssize_t __getline (/' /usr/include/stdio.h
+  # perl -p -i.swap -e 's/_IO_ssize_t getline (/_IO_ssize_t __getline (/' /usr/include/stdio.h
   # changes
   # extern _IO_ssize_t getline (char **__restrict __lineptr,)
   # into
   # extern _IO_ssize_t __getline (char **__restrict __lineptr,)
   exec { "escape getline before compiling":
     path => ['/bin', '/usr/bin', '/usr/local/bin'],
-    command => "perl -p -i.bak -e 's/_IO_ssize_t getline \\(/_IO_ssize_t __getline \\(/' /usr/include/stdio.h",
-    unless => 'ls /usr/include/stdio.h.bak',
+    command => "perl -p -i.swap -e 's/_IO_ssize_t getline \\(/_IO_ssize_t __getline \\(/' /usr/include/stdio.h",
+    unless => 'ls /usr/include/stdio.h.swap',
   }
 
   exec { "/tmp/puppet_ptetex3_install.sh":
@@ -69,7 +69,7 @@ class ptetex3::install {
       Exec["/tmp/puppet_ptetex3_install.sh"],
     ],
     path => ['/bin', '/usr/bin', '/usr/local/bin'],
-    command => "mv /usr/include/stdio.h.bak /usr/include/stdio.h",
-    onlyif => 'ls /usr/include/stdio.h.bak',
+    command => "mv /usr/include/stdio.h.swap /usr/include/stdio.h",
+    onlyif => 'ls /usr/include/stdio.h.swap',
   }
 }
