@@ -1,6 +1,6 @@
-class editors::install {
+class vim::install {
 
-  $editors = ['vim', 'emacs']
+  $editors = ['vim']
   package { $editors:
     ensure => installed,
   }
@@ -10,7 +10,7 @@ class editors::install {
       Package['vim'],
     ],
     ensure  => file,
-    source  => 'puppet:///modules/editors/vimrc',
+    source  => 'puppet:///modules/vim/vimrc',
     replace => no,
     mode    => 0644,
     owner   => root,

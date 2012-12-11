@@ -18,7 +18,8 @@ node default {
   include graphicsmagick
   include redis
   include mongodb::install
-  include editors
+  include vim
+  include emacs
   include nagios
   include munin::node
   include dovecot
