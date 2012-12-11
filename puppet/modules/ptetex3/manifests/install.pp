@@ -71,9 +71,4 @@ class ptetex3::install {
     command => "mv /usr/include/stdio.h.bak /usr/include/stdio.h",
     onlyif => 'ls /usr/include/stdio.h.bak',
   }
-
-#  exec { 'append bin into PATH':
-#    command => 'cat "export PATH=/usr/local/teTeX/bin:$PATH" >> /etc/bashrc',
-#    unless => '/bin/true',
-#  }
 }
