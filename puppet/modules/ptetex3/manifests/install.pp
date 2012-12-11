@@ -35,6 +35,7 @@ class ptetex3::install {
   exec { "escape getline before compiling":
     path => ['/bin', '/usr/bin', '/usr/local/bin'],
     command => "perl -p -i.bak -e 's/_IO_ssize_t getline \\(/_IO_ssize_t __getline \\(/' /usr/include/stdio.h",
+    unless => 'ls /usr/include/stdio.h.bak',
   }
 
   exec { "/tmp/puppet_ptetex3_install.sh":
