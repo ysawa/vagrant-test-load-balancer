@@ -1,4 +1,4 @@
-class mongodb::replication {
+class mongodb::replicaset {
 
   define initiate ($replicaset = $title, $host) {
     $script = "/tmp/puppet_mongodb_replacation_initiate_$replicaset.sh"
@@ -10,7 +10,7 @@ class mongodb::replication {
       mode => 0755,
       owner => mongodb,
       group => mongodb,
-      content => template("mongodb/replication/initiate.sh.erb"),
+      content => template("mongodb/replicaset/initiate.sh.erb"),
     }
 
     exec { $script:

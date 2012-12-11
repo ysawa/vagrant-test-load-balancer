@@ -35,9 +35,9 @@ node /^web/ inherits default {
 }
 
 node /^app/ inherits default {
-  include mongodb::replication
+  include mongodb::replicaset
 
-  mongodb::replication::initiate { 'set01':
+  mongodb::replicaset::initiate { 'set01':
     host => [
       "192.168.3.10:27017",
       "192.168.3.11:27017",
