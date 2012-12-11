@@ -10,6 +10,7 @@ node default {
     command => '/usr/bin/apt-get upgrade -y',
   }
   include hosts
+  include fonts
   include ppa
   include essentials
   include ssl
