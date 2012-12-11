@@ -13,4 +13,9 @@ Testing the load balancer by Nginx with Vagrant VMs
 * Emacs
 * teTeX 3
 * Nginx
+* PHP 5.3
+* Redis
 * Munin
+* GraphicsMagick
+* Dovecot
+* Postfix
