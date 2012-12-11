@@ -59,7 +59,7 @@ class ptetex3::install {
     ],
     path => ['/bin', '/usr/bin', '/usr/local/bin'],
     cwd => '/tmp/ptetex3/ptetex3-20090504',
-    command => "make install ; true",
+    command => "make install ; true", # force success
     onlyif => 'ls /tmp/ptetex3/ptetex3-20090504',
     unless => 'ls /usr/local/teTeX/bin/platex',
   }

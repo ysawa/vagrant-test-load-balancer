@@ -5,6 +5,7 @@ class php5::install {
   ]
   package { $packages:
     require => [
+      # in order to install php5-fpm
       Class['ppa::repositories::nathan-renniewaldock-ppa'],
     ],
     ensure => installed,
