@@ -1,4 +1,4 @@
 class ppa::repositories::nginx-stable {
 
-  ppa::repository::add { 'nginx/stable': }
+  ppa::repository { 'nginx/stable': }
 }
