@@ -49,8 +49,7 @@ class ptetex3::install {
     cwd     => '/tmp/',
     user    => ptetex3,
     timeout => 1500,
-    logoutput => on_failure,
-    # unless => '/bin/ls /usr/local/ptetex3/libexec/check_dhcp',
+    unless => '/bin/ls /usr/local/teTeX/bin/platex',
   }
 
   exec { "make install":
@@ -59,8 +58,9 @@ class ptetex3::install {
     ],
     path => ['/bin', '/usr/bin', '/usr/local/bin'],
     cwd => '/tmp/ptetex3/ptetex3-20090504',
-    command => "make install",
+    command => "make install ; true",
     onlyif => 'ls /tmp/ptetex3/ptetex3-20090504',
+    unless => 'ls /usr/local/teTeX/bin/platex',
   }
 
   exec { "unescape getline after compiling":
