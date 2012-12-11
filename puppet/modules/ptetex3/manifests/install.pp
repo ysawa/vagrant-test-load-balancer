@@ -27,12 +27,12 @@ class ptetex3::install {
     group   => ptetex3,
   }
 
-  # /usr/share/fonts/truetype/fonts-japanese-mincho.ttf
 
   # perl -p -i.bak -e 's/_IO_ssize_t getline (/_IO_ssize_t __getline (/' /usr/include/stdio.h
+  # changes
   # extern _IO_ssize_t getline (char **__restrict __lineptr,)
+  # into
   # extern _IO_ssize_t __getline (char **__restrict __lineptr,)
-
   exec { "escape getline before compiling":
     path => ['/bin', '/usr/bin', '/usr/local/bin'],
     command => "perl -p -i.bak -e 's/_IO_ssize_t getline \\(/_IO_ssize_t __getline \\(/' /usr/include/stdio.h",
@@ -42,6 +42,7 @@ class ptetex3::install {
     require => [
       Exec["escape getline before compiling"],
       Package['build-essential', 'unzip', 'flex', 'bison'],
+      # needs /usr/share/fonts/truetype/fonts-japanese-mincho.ttf
       Class['fonts::install'],
       File['/tmp/puppet_ptetex3_install.sh', '/tmp/puppet_ptetex3_my_option'],
       User['ptetex3'],
@@ -69,6 +70,7 @@ class ptetex3::install {
     ],
     path => ['/bin', '/usr/bin', '/usr/local/bin'],
     command => "mv /usr/include/stdio.h.bak /usr/include/stdio.h",
+    onlyif => 'ls /usr/include/stdio.h.bak',
   }
 
 #  exec { 'append bin into PATH':
