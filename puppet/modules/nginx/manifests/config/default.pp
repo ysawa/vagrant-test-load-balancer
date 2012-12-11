@@ -5,7 +5,7 @@ class nginx::config::default {
       Class['nginx::install'],
     ],
     ensure  => file,
-    source  => 'puppet:///modules/nginx/conf.d/default.conf',
+    content => template("nginx/conf.d/default.conf.erb"),
     replace => no,
     mode    => 0644,
     owner   => www-data,

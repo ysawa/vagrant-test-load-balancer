@@ -5,7 +5,7 @@ class nginx::config::cluster {
       Class['nginx::install'],
     ],
     ensure  => file,
-    source  => 'puppet:///modules/nginx/conf.d/cluster.conf',
+    content => template("nginx/conf.d/cluster.conf.erb"),
     replace => no,
     mode    => 0644,
     owner   => www-data,
