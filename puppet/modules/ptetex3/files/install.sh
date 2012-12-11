@@ -12,3 +12,4 @@ wget http://www.ring.gr.jp/pub/text/CTAN/obsolete/systems/unix/teTeX/3.0/distrib
 tar zxf $ptetex3_file
 cd $ptetex3
 cp /tmp/puppet_ptetex3_my_option ./my_option
+make

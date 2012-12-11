@@ -7,6 +7,7 @@ class essentials::install {
     'libxslt1.1', 'libxml2', 'libssl-dev', 'git-core', 'libffi-dev', 'libsqlite3-dev', 'libreadline6-dev', 'libgd2-xpm-dev',
     'lv',
     'unzip', 'lha',
+    'flex', 'bison',
   ]
   package { $essentials:
     require => [

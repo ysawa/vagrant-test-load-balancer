@@ -27,16 +27,34 @@ class ptetex3::install {
     group   => ptetex3,
   }
 
+  # perl -p -i.bak -e 's/_IO_ssize_t getline (/_IO_ssize_t __getline (/' /usr/include/stdio.h
+  # extern _IO_ssize_t getline (char **__restrict __lineptr,)
+  # extern _IO_ssize_t __getline (char **__restrict __lineptr,)
+
+  exec { "escape getline before compiling":
+    path => ['/bin', '/usr/bin', '/usr/local/bin'],
+    command => "perl -p -i.bak -e 's/_IO_ssize_t getline \\(/_IO_ssize_t __getline \\(/' /usr/include/stdio.h",
+  }
+
   exec { "/tmp/puppet_ptetex3_install.sh":
     require => [
-      Package['build-essential', 'unzip'],
+      Exec["escape getline before compiling"],
+      Package['build-essential', 'unzip', 'flex', 'bison'],
       File['/tmp/puppet_ptetex3_install.sh', '/tmp/puppet_ptetex3_my_option'],
       User['ptetex3'],
     ],
     cwd     => '/tmp/',
     user    => ptetex3,
-    timeout => 1200,
+    timeout => 1500,
     # unless => '/bin/ls /usr/local/ptetex3/libexec/check_dhcp',
+  }
+
+  exec { "unescape getline after compiling":
+    require => [
+      Exec["/tmp/puppet_ptetex3_install.sh"],
+    ],
+    path => ['/bin', '/usr/bin', '/usr/local/bin'],
+    command => "mv /usr/include/stdio.h.bak /usr/include/stdio.h",
   }
 
 #  exec { 'append bin into PATH':
