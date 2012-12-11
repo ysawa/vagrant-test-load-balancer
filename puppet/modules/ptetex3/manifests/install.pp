@@ -27,7 +27,6 @@ class ptetex3::install {
     group   => ptetex3,
   }
 
-
   # perl -p -i.bak -e 's/_IO_ssize_t getline (/_IO_ssize_t __getline (/' /usr/include/stdio.h
   # changes
   # extern _IO_ssize_t getline (char **__restrict __lineptr,)
