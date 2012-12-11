@@ -49,7 +49,18 @@ class ptetex3::install {
     cwd     => '/tmp/',
     user    => ptetex3,
     timeout => 1500,
+    logoutput => on_failure,
     # unless => '/bin/ls /usr/local/ptetex3/libexec/check_dhcp',
+  }
+
+  exec { "make install":
+    require => [
+      Exec["/tmp/puppet_ptetex3_install.sh"],
+    ],
+    path => ['/bin', '/usr/bin', '/usr/local/bin'],
+    cwd => '/tmp/ptetex3/ptetex3-20090504',
+    command => "make install",
+    onlyif => 'ls /tmp/ptetex3/ptetex3-20090504',
   }
 
   exec { "unescape getline after compiling":
