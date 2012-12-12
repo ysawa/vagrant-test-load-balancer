@@ -13,6 +13,7 @@ node default {
   include fonts
   include ppa
   include essentials
+  include logrotate
   include ssl
   include php5
   include nginx::install
