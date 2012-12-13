@@ -1,6 +1,11 @@
 class graphicsmagick::install {
 
-  package { ['imagemagick']: ensure => "installed" }
+  package { ['imagemagick']:
+    require => [
+      Class['ppa::repositories::nathan-renniewaldock-ppa'],
+    ],
+    ensure => "installed"
+  }
 
   file { '/tmp/puppet_graphicsmagick_install.sh':
     ensure  => file,
@@ -14,7 +19,7 @@ class graphicsmagick::install {
     require => [
       File['/tmp/puppet_graphicsmagick_install.sh'],
       Package['imagemagick'],
-      Package['build-essential'],
+      Class['essentials'],
     ],
     cwd       => '/tmp/',
     unless => '/bin/ls /usr/local/bin/GraphicsMagick-config',

@@ -46,7 +46,7 @@ class munin::install {
     require => [
       Package['munin'],
     ],
-    ensure  => directory,
+    ensure  => file,
     replace => no,
     source  => 'puppet:///modules/munin/nginx.conf',
     mode    => 0644,
