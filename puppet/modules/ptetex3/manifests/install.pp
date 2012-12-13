@@ -42,7 +42,7 @@ class ptetex3::install {
     require => [
       Exec["escape getline before compiling"],
       Package['build-essential', 'unzip', 'flex', 'bison'],
-      # needs /usr/share/fonts/truetype/fonts-japanese-mincho.ttf
+      # needs /usr/share/fonts/truetype/fonts-japanese-mincho.ttf in order to install ptetex3
       Class['fonts::install'],
       File['/tmp/puppet_ptetex3_install.sh', '/tmp/puppet_ptetex3_my_option'],
       User['ptetex3'],
