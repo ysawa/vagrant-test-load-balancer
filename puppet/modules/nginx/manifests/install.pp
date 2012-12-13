@@ -71,11 +71,17 @@ class nginx::install {
   ssl::cert { 'nginx':
   }
 
+  service { 'stop apache2':
+    name => 'apache2',
+    ensure => stopped,
+  }
+
   service { 'nginx':
     require => [
       Package['nginx'],
       Ssl::Cert['nginx'],
       Package['php5-fpm'],
+      Service['stop apache2'],
       Exec['replace /etc/nginx/nginx.conf'],
     ],
     ensure => running,

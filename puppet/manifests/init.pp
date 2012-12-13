@@ -28,6 +28,9 @@ node default {
   include postfix
   include rvm
   # include ganglia
+
+  ssl::cert { 'server':
+  }
 }
 
 node /^web/ inherits default {

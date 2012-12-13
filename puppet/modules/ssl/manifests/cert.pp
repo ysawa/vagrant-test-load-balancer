@@ -7,16 +7,10 @@ define ssl::cert (
   $department = 'Your Office or Department'
 ) {
 
-  package { 'install openssl for ssl::cert':
+  $script = "/tmp/puppet_ssl_cert_$service.sh"
+  file { $script:
     require => [
-    ],
-    name   => 'openssl',
-    ensure => installed,
-  }
-
-  file { '/tmp/puppet_ssl_cert.sh':
-    require => [
-      Package['install openssl for ssl::cert'],
+      Package["openssl"],
     ],
     ensure  => file,
     content => template("ssl/cert.sh.erb"),
@@ -25,35 +19,35 @@ define ssl::cert (
     group   => root,
   }
 
-  exec { '/tmp/puppet_ssl_cert.sh':
+  exec { $script:
     require => [
-      File['/tmp/puppet_ssl_cert.sh'],
+      File[$script],
     ],
     cwd     => '/tmp/',
     unless  => "/bin/ls /etc/ssl/private/${service}.key",
   }
 
-  exec { "move crt":
+  exec { "move crt of $service":
     require => [
-      Exec['/tmp/puppet_ssl_cert.sh'],
+      Exec[$script],
     ],
     command => "/bin/mv /tmp/puppet-ssl-cert.crt /etc/ssl/certs/${service}.crt",
     onlyif => '/bin/ls /tmp/puppet-ssl-cert.crt',
     unless  => "/bin/ls /etc/ssl/certs/${service}.crt",
   }
 
-  exec { "move csr":
+  exec { "move csr of $service":
     require => [
-      Exec['/tmp/puppet_ssl_cert.sh'],
+      Exec[$script],
     ],
     command => "/bin/mv /tmp/puppet-ssl-cert.csr /etc/ssl/certs/${service}.csr",
     onlyif => '/bin/ls /tmp/puppet-ssl-cert.csr',
     unless  => "/bin/ls /etc/ssl/certs/${service}.csr",
   }
 
-  exec { "move key":
+  exec { "move key of $service":
     require => [
-      Exec['/tmp/puppet_ssl_cert.sh'],
+      Exec[$script],
     ],
     command => "/bin/mv /tmp/puppet-ssl-cert.key /etc/ssl/private/${service}.key",
     onlyif => '/bin/ls /tmp/puppet-ssl-cert.key',
