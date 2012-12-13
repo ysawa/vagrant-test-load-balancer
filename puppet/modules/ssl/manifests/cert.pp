@@ -1,10 +1,11 @@
-define ssl::cert ($service = $title, $country = 'JP', $state = 'Tokyo') {
-
-  # INFO_COUNTRY="Your Country Abbreviation"
-  # INFO_STATE="Your State"
-  # INFO_CITY="Your City"
-  # INFO_ORGANIZATION="Your Company or Organization"
-  # INFO_DEPARTMENT="Your Office or Department"
+define ssl::cert (
+  $service = $title,
+  $country = 'JP',
+  $state = 'Tokyo',
+  $city = 'Bunkyo-ku',
+  $organization = 'Your Company or Organization',
+  $department = 'Your Office or Department'
+) {
 
   package { 'install openssl for ssl::cert':
     require => [
