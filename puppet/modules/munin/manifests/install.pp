@@ -45,6 +45,7 @@ class munin::install {
   file { '/etc/nginx/conf.d/munin.conf':
     require => [
       Package['munin'],
+      Class['nginx::install'],
     ],
     ensure  => file,
     replace => no,
