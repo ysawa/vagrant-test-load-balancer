@@ -24,8 +24,8 @@ fqdn() {
 (nslookup ${1} 2>&1 || echo Name ${1}) | tail -3 | grep Name| sed -e 's,.*e:[ \t]*,,'
 }
 
-INFO_COUNTRY="Your Country Abbreviation"
-INFO_STATE="Your State"
+INFO_COUNTRY="<%= @country %>"
+INFO_STATE="<%= @state %>"
 INFO_CITY="Your City"
 INFO_ORGANIZATION="Your Company or Organization"
 INFO_DEPARTMENT="Your Office or Department"

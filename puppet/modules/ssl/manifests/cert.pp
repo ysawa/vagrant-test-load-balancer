@@ -1,4 +1,10 @@
-define ssl::cert ($service = $title) {
+define ssl::cert ($service = $title, $country = 'JP', $state = 'Tokyo') {
+
+  # INFO_COUNTRY="Your Country Abbreviation"
+  # INFO_STATE="Your State"
+  # INFO_CITY="Your City"
+  # INFO_ORGANIZATION="Your Company or Organization"
+  # INFO_DEPARTMENT="Your Office or Department"
 
   package { 'install openssl for ssl::cert':
     require => [
@@ -12,7 +18,7 @@ define ssl::cert ($service = $title) {
       Package['install openssl for ssl::cert'],
     ],
     ensure  => file,
-    source  => 'puppet:///modules/ssl/cert.sh',
+    content => template("ssl/cert.sh.erb"),
     mode    => 0700,
     owner   => root,
     group   => root,
